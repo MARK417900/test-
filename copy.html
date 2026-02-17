@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marks Zone - Daily Free Loots</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff2d2d">
+<style>
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0d0f1a;
+    color:white;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#111;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:18px;
+    font-weight:700;
+    color:#fff;
+}
+
+.logo span{
+    color:#ff2d2d;
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.hamburger span{
+    width:25px;
+    height:3px;
+    background:#fff;
+    border-radius:3px;
+    transition:0.3s ease;
+}
+
+/* ===== MOBILE MENU ===== */
+.menu{
+    position:fixed;
+    top:0;
+    right:-280px;
+    width:200px;
+    height:100vh;
+    background:#111;
+    padding:30px 25px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    transition:0.4s ease;
+    z-index:2000;
+}
+
+.menu.active{
+    right:0;
+}
+
+.menu a{
+    text-decoration:none;
+    color:#fff;
+    font-size:15px;
+    transition:0.3s ease;
+}
+
+.menu a:hover{
+    color:#ff2d2d;
+    padding-left:5px;
+}
+
+/* Close Button */
+.close-btn{
+    align-self:flex-end;
+    font-size:22px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+/* Overlay */
+.nav-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:rgba(0,0,0,0.6);
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s;
+    z-index:900;
+}
+
+.nav-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+body.no-scroll{
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* ===== DESKTOP NAV ===== */
+@media(min-width:1024px){
+
+    .hamburger{
+        display:none;
+    }
+
+    .menu{
+        position:static;
+        height:auto;
+        flex-direction:row;
+        gap:25px;
+        width:auto;
+        padding:0;
+        right:0;
+        background:none;
+        transition:none;
+    }
+
+    .close-btn{
+        display:none;
+    }
+
+    .nav-overlay{
+        display:none;
+    }
+
+    .menu a{
+        font-size:14px;
+    }
+
+}
+/* ===== HERO ===== */
+.hero{
+    text-align:center;
+    padding:40px 20px;
+    background:radial-gradient(circle at top,#1a1f35,#0d0f1a);
+}
+
+.hero h1{font-size:22px;margin-bottom:10px;}
+.hero p{font-size:14px;opacity:0.8;}
+
+/* ===== SECTION TITLE ===== */
+.section-title{
+    font-size:20px;
+    font-weight:600;
+    margin: 15px;
+}
+
+/* ===== CARDS ===== */
+.cards{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    padding:0 20px 30px;
+}
+
+.card{
+    background:#1a1f35;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+.card img{
+    width:100%;
+    height:150px;
+    border-radius:13px;
+    margin-bottom:15px;
+}
+
+.card h3{font-size:14px;margin-bottom:8px;}
+
+.badges{
+    font-size:12px;
+    margin-bottom:10px;
+    color:#ffffff;
+}
+
+.card-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    flex:1;
+    padding:12px;
+    border-radius:8px;
+    border:none;
+    font-weight:600;
+    cursor:pointer;
+    font-size:13px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-blue{
+  background-color: #3d6ed652;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.btn-red{
+  background-color: #5d5a5f59;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+/* ===== CATEGORIES ===== */
+.categories{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    padding:0 20px 30px;
+}
+
+.category{
+    background:#1a1f35;
+    padding:15px;
+    text-align:center;
+    border-radius:10px;
+    font-size:13px;
+}
+
+/* ===== TELEGRAM SECTION ===== */
+.telegram{
+    text-align:center;
+    padding:30px 20px;
+    background:#111;
+}
+
+.telegram h2{font-size:16px;margin-bottom:10px;}
+.telegram p{font-size:13px;opacity:0.8;margin-bottom:15px;}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:20px;
+    font-size:12px;
+    background:#0a0c14;
+    opacity:0.7;
+}
+
+/* ===== MODAL ===== */
+.modal-content{
+    background:#1a1f35;
+    padding:20px;
+    border-radius:10px;
+    width:90%;
+    max-width:350px;
+    text-align:center;
+}
+
+.modal-buttons{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+
+/* ===== ABOUT MODAL ===== */
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+    z-index:3000;
+}
+
+.modal-content{
+    background:#1a1f35;
+    padding:30px;
+    border-radius:15px;
+    width:90%;
+    max-width:400px;
+    text-align:center;
+    animation:fadeIn 0.3s ease;
+}
+
+.modal-content h2{
+    margin-bottom:15px;
+}
+
+.modal-content p{
+    font-size:14px;
+    margin-bottom:20px;
+    opacity:0.8;
+    line-height:1.6;
+}
+
+@keyframes fadeIn{
+    from{transform:scale(0.8);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+/* ===== BROWSE BY CATEGORY CARD ===== */
+.menu-container{
+    width:90%;
+    max-width:1100px;
+    margin:25px auto;   /* center + space top/bottom */
+    padding:19px;
+    margin-top:3px ;
+    background:#1a1f35;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0d0f1a;
+    color:#fff;
+}
+/* ===== SECTION ===== */
+.partners-section{
+    padding:20px;
+    background:linear-gradient(135deg,#002fff00,#585c6e);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+/* ===== SLIDER ===== */
+/* Fade edges */
+.partners-slider::before,
+.partners-slider::after{
+    content:"";
+    position:absolute;
+    top:0;
+    width:120px;
+    height:100%;
+    z-index:2;
+    pointer-events:none;
+}
+
+.partners-slider::before{
+    left:0;
+    background:linear-gradient(to right,#0f1220,transparent);
+}
+
+.partners-slider::after{
+    right:0;
+    background:linear-gradient(to left,#0f1220,transparent);
+}
+
+/* ===== TRACK ===== */
+.partners-track{
+    display:flex;
+    align-items:center;
+    gap:60px;
+    width:max-content;
+    animation:scroll 30s linear infinite;
+}
+
+/* ===== CARD ===== */
+.partner{
+    background-color: rgba(255, 255, 255, 0.288);
+    padding:18px 35px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:160px;
+    border:0px;
+    transition:0.4s ease;
+}
+.ms{
+    text-decoration: none; color: inherit; font-weight: bold; font-size: 18px;
+}
+
+.partner img{
+    height:40px;
+    object-fit:contain;
+    transition:0.3s ease;
+}
+
+/* Hover */
+.partner:hover{
+    transform:translateY(-8px) scale(1.05);
+    background-color: #5a5e5b2f;
+}
+
+
+/* Pause on hover */
+.partners-slider:hover .partners-track{
+    animation-play-state:paused;
+}
+
+/* ===== LEFT → RIGHT ANIMATION ===== */
+@keyframes scroll{
+    0%{
+        transform:translateX(-50%);
+    }
+    100%{
+        transform:translateX(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+
+    .partners-title{
+        font-size:17px;
+    }
+
+    .partners-track{
+        gap:30px;
+    }
+
+    .partner{
+        padding:12px 20px;
+        min-width:120px;
+    }
+
+    .partner img{
+        height:30px;
+    }
+
+    .partners-slider::before,
+    .partners-slider::after{
+        width:60px;
+    }
+}
+
+/* ===== SECTION ===== */
+.menu-section{
+    width:100%;
+    padding:25px 20px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.menu-title{
+    font-size:17px;
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+}
+
+.arrow{
+    transition:0.3s ease;
+}
+
+.menu-section.active .arrow{
+    transform:rotate(180deg);
+}
+
+/* ===== ACCORDION CONTENT ===== */
+.menu-links{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.5s ease;
+}
+
+.menu-links-inner{
+    padding-top:10px;
+}
+
+/* ===== GRID RESPONSIVE ===== */
+.links-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+}
+
+.links-grid a{
+    text-decoration:none;
+    color:#aaa;
+    font-size:15px;
+    transition:0.3s;
+}
+
+.links-grid a:hover{
+    color:#fff;
+    padding-left:5px;
+}
+
+/* Tablet */
+@media(min-width:600px){
+    .links-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+/* Small Desktop */
+@media(min-width:900px){
+    .links-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+/* Large Desktop */
+@media(min-width:1200px){
+    .links-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+/* ===== FLOATING BUTTON ===== */
+.floating-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#fff;
+    color:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.5);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.floating-btn:hover{
+    transform:scale(1.1);
+}
+
+/* ===== DESKTOP ===== */
+@media(min-width:768px){
+    .menu{
+        display:flex!important;
+        position:static;
+        flex-direction:row;
+        gap:20px;
+        width:auto;
+        padding:0;
+    }
+    .hamburger{display:none;}
+    .cards{flex-direction:row;}
+    .card{flex:1;}
+    .categories{grid-template-columns:repeat(5,1fr);}
+}
+/* ===== PREMIUM FOOTER ===== */
+.premium-footer{
+    background:#000;
+    text-align:center;
+    padding:20px 10px;
+}
+
+.footer-logo-img{
+    width:100%;
+    max-width:300px;
+    height:auto;
+    margin-top:0px;
+    margin-bottom:0px;
+    filter:brightness(1.3) contrast(1.2);
+}
+
+.footer-links{
+    margin-top:0px;
+    font-size:14px;
+}
+
+.footer-links a{
+    color:#ccc;
+    text-decoration:none;
+    margin:0 10px;
+    transition:0.3s;
+}
+
+.footer-links a:hover{
+    color:#ff2d2d;
+}
+
+.footer-divider{
+    height:1px;
+    background:rgba(124, 100, 100, 0.2);
+    margin-top: 15px;
+    margin-bottom:10px;
+    width:80%;
+}
+
+.footer-copy{
+    font-size:14px;
+    opacity:0.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">MARKS <span>ZONE</span></div>
+
+    <div class="hamburger" onclick="openMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="menu" id="menu">
+        <div class="close-btn" onclick="closeMenu()">✖</div>
+
+        <a href="#" onclick="closeMenu()">Home</a>
+        <a href="https://t.me/EarnWithMark41">Channel</a>
+        <a href="https://t.me/+pNRg_oJqSaFlZWE1">Community</a>
+        <a href="https://t.me/Mark41_helperBot">Feedback</a>
+        <a href="https://t.me/Mark41_helperBot">Contact</a>
+        <a href="#" onclick="openAbout();">About</a>
+    </div>
+</nav>
+
+<div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+<section class="hero">
+    <h1>🔥 DAILY FREE LOOTS & OFFERS 🔥</h1>
+    <p>Trusted Deals | Verified Offers | Updated Daily</p>
+</section>
+
+<div class="section-title">🎁 Latest Free Loots</div>
+
+<div class="cards">
+    <div class="card">
+        <img src="Hotya.jpg" alt="">
+        <h3>Hotya App</h3>
+        <div class="badges">👉Per Refral ₹50 <br>👉Min Withdraw ₹120<br>👉2 Refer karo & Withdraw</div>
+        <div class="card-buttons">
+            <a class="btn btn-red" href="https://hy1.in/fJjCrLT" target="_blank">JOIN NOW</a>
+            <a class="btn btn-blue more-info-btn"
+            data-title="Hotya App"
+            data-details="Full Post available on our Telegram channel. Join now to access the complete offer details and start earning! 🔥🔥🔥 "
+            data-link="https://t.me/EarnWithMark41/265">MORE INFO</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="xo.jpg" alt="">
+        <h3>XO Live App</h3>
+        <div class="badges">👉Per Refral ₹30 <br>👉Min Withdraw ₹130<br>👉5 Refer karo & Withdraw</div>
+        <div class="card-buttons">
+            <a class="btn btn-red" href="https://play.xolive.tv?code=MN6EAH" target="_blank">JOIN NOW</a>
+            <a class="btn btn-blue more-info-btn"
+            data-title="XO Live App"
+            data-details="Full Post available on our Telegram channel. Join now to access the complete offer details and start earning! 🔥🔥🔥 "
+            data-link="https://t.me/EarnWithMark41/495">MORE INFO</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="GOSH.jpg" alt="">
+        <h3>GOSH App</h3>
+        <div class="badges">👉Per Refral ₹50 <br>👉Min Withdraw ₹120<br>👉2 Refer karo & Withdraw</div>
+        <div class="card-buttons">
+            <a class="btn btn-red" href="https://go1.sh/fK05wOe" target="_blank">JOIN NOW</a>
+            <a class="btn btn-blue more-info-btn"
+            data-title="GOSH App"
+            data-details="Full Post available on our Telegram channel. Join now to access the complete offer details and start earning! 🔥🔥🔥 "
+            data-link="https://t.me/EarnWithMark41/496">MORE INFO</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="coming soon.jpg" alt="">
+        <h3>New Loot Comming Soon...</h3>
+        <div class="badges">✔ Stay connected<br>✔ join our official channel</div>
+        <div class="card-buttons">
+            <a class="btn btn-red" href="https://t.me/EarnWithMark41" target="_blank">JOIN NOW</a>
+            <a class="btn btn-blue more-info-btn"
+            data-title="Coming Soon Offer"
+            data-details="Full Post available on our Telegram channel. Join now to access the complete offer details and start earning! 🔥🔥🔥 "
+            data-link="https://t.me/EarnWithMark41/6">MORE INFO</a>
+        </div>
+    </div>
+</div>
+<!-- more info modal -->
+<div class="modal" id="infoModal">
+    <div class="modal-content">
+        <h2 id="infoTitle"></h2>
+        <p id="infoDetails"></p>
+
+        <div class="modal-buttons">
+            <a id="fullPostBtn" target="_blank" class="btn btn-blue">
+                Full Post
+            </a>
+            <button class="btn btn-red" onclick="closeInfoModal()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+<!-- ABOUT MODAL -->
+<div class="modal" id="aboutModal">
+    <div class="modal-content">
+        <h2>About</h2>
+        <p>
+            hii👋, I'm Mark, the founder of Mark Zone.
+            Mark Zone provides daily verified free loots, trusted deals,
+            and campaign updates. Our mission is to share real and safe offers
+            with our community.
+        </p>
+        <button class="btn btn-blue" onclick="closeAbout()">OK</button>
+    </div>
+</div>
+<!-- DISCLAIMER MODAL -->
+<div class="modal" id="disclaimerModal">
+    <div class="modal-content">
+        <h2>Disclaimer</h2>
+        <p>
+            All offers shared on Mark Zone are for informational purposes only.
+            We do not guarantee availability or eligibility of any offer.
+            Users should verify details before participating.
+        </p>
+        <button class="btn btn-blue" onclick="closeDisclaimer()">OK</button>
+    </div>
+</div>
+<!-- PRIVACY POLICY MODAL -->
+<div class="modal" id="privacyModal">
+    <div class="modal-content">
+        <h2>Privacy Policy</h2>
+        <p>
+            Mark Zone does not collect personal information directly.
+            External links may have their own privacy policies.
+            We recommend reviewing third-party privacy terms before using their services.
+        </p>
+        <button class="btn btn-blue" onclick="closePrivacy()">OK</button>
+    </div>
+</div>
+<div class="menu-container">
+    <div class="section-title">🛍 Browse by Category</div>
+    <div class="menu-section">
+        <div class="menu-title">
+            Refer & Earn Apps
+            <span class="arrow">⌄</span>
+        </div>
+        <div class="menu-links">
+            <div class="menu-links-inner">
+                <div class="links-grid">
+                    <a href="https://hy1.in/fJjCrLT">Hotya</a>
+                    <a href="https://go1.sh/fK05wOe">GOSH</a>
+                    <a href="https://play.xolive.tv?code=MN6EAH">XO Live</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-section">
+        <div class="menu-title">
+            Campaigns Loots
+            <span class="arrow">⌄</span>
+        </div>
+        <div class="menu-links">
+            <div class="menu-links-inner">
+                <div class="links-grid">
+                    <a href="https://jodcampaign.com/o/nielsenctv/dyzgebi">Nelson Camp.</a>
+                    <a href="https://cgrj.in/c/c3wvgtis">AU Card limt Check</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="partners-section">
+    <h2 class="partners-title">🤝 Our Official Partners</h2>
+    <div class="partners-slider">
+        <div class="partners-track" id="partnersTrack">
+
+            <div class="partner">
+                <a href="https://amazon.in" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                </a>
+            </div>
+
+            <div class="partner">
+                <a href="https://www.flipkart.com" target="_blank"> <img src="flipkart.svg" alt="flipkart"></a>
+               
+            </div>
+
+            <div class="partner">
+                <a href="#" target="_blank">
+                <img src="fampay.svg" alt="Fampay"></a>
+            </div>
+            <div class="partner">
+               <a href="https://t.me/MSofficialTeam" class="ms"> MS Official </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- PREMIUM FOOTER -->
+<footer class="premium-footer">
+    <!-- IMAGE LOGO -->
+    <img src="logo.jpg" alt="Marks Zone Official Logo" class="footer-logo-img">
+
+    <div class="footer-links">
+    <a href="#" onclick="openDisclaimer()">Disclaimer</a> |
+    <a href="#" onclick="openPrivacy()">Privacy Policy</a> |
+    <a href="https://t.me/Mark41_helperBot">Contact</a>
+</div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">
+        Made with ❤️ and ☕ in India
+    </p>
+
+</footer>
+
+<script>
+    const sections = document.querySelectorAll(".menu-section");
+
+sections.forEach(section => {
+    const title = section.querySelector(".menu-title");
+    const content = section.querySelector(".menu-links");
+
+    title.addEventListener("click", () => {
+        section.classList.toggle("active");
+
+        if(section.classList.contains("active")){
+            content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+            content.style.maxHeight = null;
+        }
+    });
+});
+
+/* Open first section */
+window.addEventListener("load", () => {
+    const first = document.querySelector(".menu-section.active .menu-links");
+    if(first){
+        first.style.maxHeight = first.scrollHeight + "px";
+    }
+});
+let telegramLink="https://t.me/EarnWithMark41";
+function openMenu(){
+    document.getElementById("menu").classList.add("active");
+    document.getElementById("navOverlay").classList.add("active");
+
+    // 🚫 Disable scrolling
+    document.body.style.overflow = "hidden";
+}
+
+function closeMenu(){
+    document.getElementById("menu").classList.remove("active");
+    document.getElementById("navOverlay").classList.remove("active");
+
+    // ✅ Enable scrolling again
+    document.body.style.overflow = "auto";
+}
+/* Duplicate logos for seamless infinite loop */
+window.addEventListener("load", function(){
+    const track = document.getElementById("partnersTrack");
+    track.innerHTML += track.innerHTML;
+});
+function openAbout(){
+    document.getElementById("aboutModal").style.display="flex";
+}
+
+function closeAbout(){
+    document.getElementById("aboutModal").style.display="none";
+}
+function openDisclaimer(){
+    document.getElementById("disclaimerModal").style.display = "flex";
+}
+
+function closeDisclaimer(){
+    document.getElementById("disclaimerModal").style.display = "none";
+}
+
+function openPrivacy(){
+    document.getElementById("privacyModal").style.display = "flex";
+}
+
+function closePrivacy(){
+    document.getElementById("privacyModal").style.display = "none";
+}
+// Handle all MORE INFO buttons automatically
+document.addEventListener("click", function(e){
+    if(e.target.classList.contains("more-info-btn")){
+
+        const title = e.target.getAttribute("data-title");
+        const details = e.target.getAttribute("data-details");
+        const link = e.target.getAttribute("data-link");
+
+        document.getElementById("infoTitle").innerText = title;
+        document.getElementById("infoDetails").innerText = details;
+        document.getElementById("fullPostBtn").href = link;
+
+        document.getElementById("infoModal").style.display = "flex";
+    }
+});
+
+function closeInfoModal(){
+    document.getElementById("infoModal").style.display = "none";
+}
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then(function() {
+        console.log("Service Worker Registered");
+      });
+  });
+}
+</script>
+
+</body>
